@@ -15,13 +15,52 @@ Else
 6.	Return 0
  
 Program:
+```
+#include <stdio.h>
 
-//type your code here
+#define MAX 100  // Maximum number of people
+
+// Structure to store person details
+struct Person {
+    char name[50];
+    int age;
+};
+
+int main() {
+    struct Person people[MAX];
+    int n, i;
+
+    printf("Enter the number of persons: ");
+    scanf("%d", &n);
+
+    // Input details
+    for (i = 0; i < n; i++) {
+        printf("\nEnter details for person %d\n", i + 1);
+        printf("Name: ");
+        scanf("%s", people[i].name);
+        printf("Age: ");
+        scanf("%d", &people[i].age);
+    }
+
+    // Check eligibility
+    printf("\nVaccine Eligibility Status:\n");
+    for (i = 0; i < n; i++) {
+        if (people[i].age > 6) {
+            printf("%s (Age %d): Eligible for Vaccine\n", people[i].name, people[i].age);
+        } else {
+            printf("%s (Age %d): Not Eligible for Vaccine\n", people[i].name, people[i].age);
+        }
+    }
+
+    return 0;
+}
+```
 
 
 Output:
 
-//paste your output here
+![image](https://github.com/user-attachments/assets/f383b65a-505d-4191-90c6-b2f0f0fe5b19)
+
 
 
 Result:
@@ -44,15 +83,58 @@ Algorithm:
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
 
+// Define a structure
+struct Student {
+    char name[50];
+    int marks1, marks2, marks3;
+    float average;
+};
 
+// Function to take input and return a structure
+struct Student getStudentDetails() {
+    struct Student s;
+
+    printf("Enter student name: ");
+    scanf("%s", s.name);
+    printf("Enter marks for 3 subjects: ");
+    scanf("%d %d %d", &s.marks1, &s.marks2, &s.marks3);
+
+    return s; // return structure
+}
+
+// Function to calculate average - structure is passed as argument
+void calculateAverage(struct Student *s) {
+    s->average = (s->marks1 + s->marks2 + s->marks3) / 3.0;
+}
+
+// Function to display student details
+void displayStudent(struct Student s) {
+    printf("\n--- Student Details ---\n");
+    printf("Name: %s\n", s.name);
+    printf("Marks: %d, %d, %d\n", s.marks1, s.marks2, s.marks3);
+    printf("Average: %.2f\n", s.average);
+}
+
+int main() {
+    struct Student student;
+
+    student = getStudentDetails();   // receiving a structure
+    calculateAverage(&student);      // passing structure to function
+    displayStudent(student);
+
+    return 0;
+}
+```
 
 
 Output:
 
 
-//paste your output here
+![image](https://github.com/user-attachments/assets/5d402449-7956-444c-befe-a7a11e031286)
+
 
 
 
@@ -86,7 +168,36 @@ Use scanf to input the file name into the name array.
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+
+int main() {
+    char fileName[100];
+    FILE *file;
+    char ch;
+
+    // Read file name from user
+    printf("Enter the file name to open: ");
+    scanf("%s", fileName);
+
+    // Open the file in read mode
+    file = fopen(fileName, "r");
+
+    if (file == NULL) {
+        printf("Error: Could not open the file %s\n", fileName);
+        return 1;
+    }
+
+    // Read and display contents
+    printf("\n--- File Contents ---\n");
+    while ((ch = fgetc(file)) != EOF) {
+        putchar(ch);
+    }
+
+    fclose(file);
+    return 0;
+}
+```
 
 
 
@@ -94,15 +205,7 @@ Program:
 Output:
 
 
-//paste your output here
-
-
-
-
-
-
-
-
+![image](https://github.com/user-attachments/assets/400f1957-a2d2-4a0c-89ea-13933dd45d9b)
 
 
 
@@ -133,7 +236,53 @@ Use scanf to input the file name into the name array and the number of strings i
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    char fileName[100], ch;
+    FILE *file;
+    char text[1000];
+
+    // Get the file name from user
+    printf("Enter the file name: ");
+    scanf("%s", fileName);
+
+    // Open file in read mode to display existing content
+    file = fopen(fileName, "r");
+    if (file == NULL) {
+        printf("File not found. Creating a new file.\n");
+    } else {
+        printf("\n--- Existing File Content ---\n");
+        while ((ch = fgetc(file)) != EOF) {
+            putchar(ch);
+        }
+        fclose(file);
+    }
+
+    // Open file in append mode to insert new content
+    file = fopen(fileName, "a");
+    if (file == NULL) {
+        printf("Error opening file for writing.\n");
+        return 1;
+    }
+
+    printf("\nEnter the text to insert (end input with ~ on a new line):\n");
+
+    getchar(); // to clear the newline after scanf
+    while (fgets(text, sizeof(text), stdin)) {
+        if (text[0] == '~') // sentinel to end input
+            break;
+        fputs(text, file);
+    }
+
+    fclose(file);
+    printf("Text successfully added to the file.\n");
+
+    return 0;
+}
+```
 
 
 
@@ -141,9 +290,7 @@ Program:
 Output:
 
 
-//paste your output here
-
-
+![image](https://github.com/user-attachments/assets/67d6eb72-c22a-4fee-98a9-a18d71dd3037)
 
 
 
@@ -187,7 +334,52 @@ Algorithm:
 
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Subject {
+    char name[50];
+    float marks;
+};
+
+int main() {
+    int n, i;
+    struct Subject *subjects;
+
+    printf("Enter the number of subjects: ");
+    scanf("%d", &n);
+
+    // Dynamically allocate memory
+    subjects = (struct Subject *)malloc(n * sizeof(struct Subject));
+
+    // Check for memory allocation failure
+    if (subjects == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    // Input subject details
+    for (i = 0; i < n; i++) {
+        printf("\nEnter name of subject %d: ", i + 1);
+        scanf("%s", subjects[i].name);
+        printf("Enter marks for %s: ", subjects[i].name);
+        scanf("%f", &subjects[i].marks);
+    }
+
+    // Display subject details
+    printf("\n--- Subject Information ---\n");
+    for (i = 0; i < n; i++) {
+        printf("Subject %d: %s - %.2f marks\n", i + 1, subjects[i].name, subjects[i].marks);
+    }
+
+    // Free allocated memory
+    free(subjects);
+    printf("\nMemory successfully freed.\n");
+
+    return 0;
+}
+```
 
 
 
@@ -195,7 +387,7 @@ Program:
 Output:
 
 
-//paste your output here
+![image](https://github.com/user-attachments/assets/c02f89ae-5f1f-4da0-a7cd-61b5d9e90c39)
 
 
 
