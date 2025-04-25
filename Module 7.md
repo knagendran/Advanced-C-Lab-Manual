@@ -15,13 +15,49 @@ Else
 6.	Return 0
  
 Program:
+```
+#include <stdio.h>
 
-//type your code here
+struct eligible {
+    int age;
+    char n[50];
+};
+
+int main() {
+    int i, size;
+
+    printf("Enter number of persons: ");
+    scanf("%d", &size);
+
+    struct eligible e[size];
+
+    for(i = 0; i < size; i++) {
+        printf("\nEnter name of person %d: ", i + 1);
+        scanf("%s", e[i].n);
+        printf("Enter age of %s: ", e[i].n);
+        scanf("%d", &e[i].age);
+    }
+
+    for(i = 0; i < size; i++) {
+        printf("\n--- Details of person %d ---\n", i + 1);
+        printf("Name: %s\n", e[i].n);
+        printf("Age: %d\n", e[i].age);
+        if(e[i].age <= 6) {
+            printf("Vaccine Eligibility: No\n");
+        } else {
+            printf("Vaccine Eligibility: Yes\n");
+        }
+    }
+
+    return 0;
+}
+```
 
 
 Output:
 
-//paste your output here
+![image](https://github.com/user-attachments/assets/64189dd1-569f-4432-bebe-6cc49483e810)
+
 
 
 Result:
@@ -43,8 +79,37 @@ Algorithm:
 7.	Return 0
  
 Program:
+```
+#include <stdio.h>
 
-//type your code here
+struct numbers {
+    int a;
+    int b;
+};
+
+struct numbers add(struct numbers n) {
+    struct numbers result;
+    result.a = n.a + n.b;  
+    result.b = 0;          
+    return result;
+}
+
+int main() {
+    struct numbers n, sum;
+
+    printf("Enter value for a: ");
+    scanf("%d", &n.a);
+    printf("Enter value for b: ");
+    scanf("%d", &n.b);
+
+    sum = add(n);
+
+    printf("Sum of %d and %d is: %d\n", n.a, n.b, sum.a);
+
+    return 0;
+}
+
+```
 
 
 
@@ -52,7 +117,8 @@ Program:
 Output:
 
 
-//paste your output here
+![image](https://github.com/user-attachments/assets/c3647968-7ca0-400e-93ff-67fad9db131c)
+
 
 
 
@@ -86,7 +152,32 @@ Use scanf to input the file name into the name array.
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>  
+
+int main() {        
+    FILE *p;       
+    char name[100]; 
+    scanf("%s", name);
+
+    printf("%s\n", name);
+
+    p = fopen(name, "w");
+    if (p == NULL) {
+        printf("Error");
+        return 1; 
+    }
+
+    printf("File %s has been opened successfully.\n", name);
+
+    fclose(p);
+
+    printf("File %s has been closed.\n", name);
+
+    return 0;
+}
+
+```
 
 
 
@@ -94,7 +185,8 @@ Program:
 Output:
 
 
-//paste your output here
+![image](https://github.com/user-attachments/assets/ddf14f7c-52db-4695-aeff-11a498998aa3)
+
 
 
 
@@ -133,15 +225,41 @@ Use scanf to input the file name into the name array and the number of strings i
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+int main() 
+{
+    FILE *file;
+    char filename[100];
+    int n;
+    float number;
+    scanf("%s", filename);
+    file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("Could not open or create file %s\n", filename);
+        return 1;
+    }
+    printf("%s Opened\n", filename);
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        scanf("%f", &number);
+        fprintf(file, "%.2f\n", number);  
+    }
+    fclose(file);
+    printf("Data added Successfully\n");
 
+    return 0;
+}
+
+```
 
 
 
 Output:
 
 
-//paste your output here
+![image](https://github.com/user-attachments/assets/f611a74a-7670-42b9-b976-9ef50fb67b87)
+
 
 
 
@@ -187,7 +305,34 @@ Algorithm:
 
 Program:
 
-//type your code here
+```
+#include<stdio.h>
+
+struct person{
+
+   int age;
+
+   float height;
+
+};
+
+int main(){
+
+   struct person *personPtr, person1;
+   personPtr = &person1;
+   scanf("%d",&personPtr->age);
+   scanf("%f",&personPtr->height);
+   printf("Displaying:\n");
+   printf("id: %d\n",personPtr->age);
+   printf("height: %f",personPtr->height);
+   
+
+
+
+return 0;
+
+}
+```
 
 
 
@@ -195,7 +340,8 @@ Program:
 Output:
 
 
-//paste your output here
+![image](https://github.com/user-attachments/assets/3d6d1f49-8c56-4433-a10f-ec6e6ee3bb88)
+
 
 
 
