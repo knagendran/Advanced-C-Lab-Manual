@@ -1,7 +1,7 @@
 
 
 EXP NO:21 C PROGRAM TO CREATE A FUNCTION TO FIND THE GREATEST NUMBER
-Aim:
+Aim:fx
 To write a C program to create a function to find the greatest number
 
 Algorithm:
