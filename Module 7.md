@@ -16,12 +16,51 @@ Else
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+#include <string.h>
+
+struct Person {
+    char name[50];
+    int age;
+};
+
+int main() {
+    int n, i;
+    
+    printf("Enter number of people: ");
+    scanf("%d", &n);
+    
+    struct Person people[n]; 
+    
+    
+    for (i = 0; i < n; i++) {
+        printf("\nEnter name of person %d: ", i + 1);
+        scanf(" %[^\n]", people[i].name); 
+        printf("Enter age of %s: ", people[i].name);
+        scanf("%d", &people[i].age);
+    }
+    
+    
+    printf("\nVaccine Eligibility:\n");
+    for (i = 0; i < n; i++) {
+        printf("%s (Age: %d) is ", people[i].name, people[i].age);
+        if (people[i].age >= 18) {
+            printf("Eligible for the vaccine.\n");
+        } else {
+            printf("Not eligible for the vaccine.\n");
+        }
+    }
+    
+    return 0;
+}
+```
 
 
 Output:
 
-//paste your output here
+![Screenshot 2025-04-26 205345](https://github.com/user-attachments/assets/bb89e730-b0b0-4e1b-8234-934bd168afa3)
+
 
 
 Result:
@@ -30,6 +69,8 @@ Thus, the program is verified successfully.
 
 
 EXP NO:2 C PROGRAM FOR PASSING STRUCTURES AS FUNCTION ARGUMENTS AND RETURNING A STRUCTURE FROM A FUNCTION
+
+
 Aim:
 To write a C program for passing structure as function and returning a structure from a function
 
@@ -44,7 +85,52 @@ Algorithm:
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+
+
+struct Student {
+    char name[50];
+    int marks1, marks2, marks3;
+    int total;
+    float percentage;
+};
+
+
+struct Student calculateResult(struct Student s) {
+    s.total = s.marks1 + s.marks2 + s.marks3;
+    s.percentage = (s.total / 3.0); // 3 subjects
+    return s;
+}
+
+
+int main() {
+    struct Student student1;
+    
+    printf("Enter student's name: ");
+    scanf(" %[^\n]", student1.name);
+    
+    printf("Enter marks for 3 subjects:\n");
+    printf("Subject 1: ");
+    scanf("%d", &student1.marks1);
+    printf("Subject 2: ");
+    scanf("%d", &student1.marks2);
+    printf("Subject 3: ");
+    scanf("%d", &student1.marks3);
+    
+    
+    student1 = calculateResult(student1);
+    
+    
+    printf("\n--- Student Result ---\n");
+    printf("Name       : %s\n", student1.name);
+    printf("Total Marks: %d\n", student1.total);
+    printf("Percentage : %.2f%%\n", student1.percentage);
+    
+    return 0;
+}
+
+```
 
 
 
@@ -52,7 +138,7 @@ Program:
 Output:
 
 
-//paste your output here
+![Screenshot 2025-04-26 205345](https://github.com/user-attachments/assets/204eeded-8034-454c-ae28-e0a7a5f926a2)
 
 
 
@@ -86,7 +172,29 @@ Use scanf to input the file name into the name array.
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+
+int main() {
+    FILE *file;
+    char filename[100];
+    scanf("%s", filename);
+    file = fopen(filename, "w");
+    
+    if (file == NULL) {
+        printf("Error creating file!\n");
+        return 1;
+    }
+    
+    printf("%s File Created Successfully\n", filename);
+    printf("%s File Opened\n", filename);
+    fclose(file);
+    printf("%s File Closed\n", filename);
+    
+    return 0;
+}
+
+```
 
 
 
@@ -94,7 +202,7 @@ Program:
 Output:
 
 
-//paste your output here
+![Screenshot 2025-04-26 210516](https://github.com/user-attachments/assets/38ad90c5-d63e-4efa-a72c-d974dff28de3)
 
 
 
@@ -133,16 +241,42 @@ Use scanf to input the file name into the name array and the number of strings i
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
 
+int main() {
+    FILE *file;
+    char filename[100];
+    int n;
+    char text[100];
+    scanf("%s", filename);
+    file = fopen(filename, "w");
+    
+    if (file == NULL) {
+        printf("Error creating file!\n");
+        return 1;
+    }
+    
+    printf("%s Opened\n", filename);
+    scanf("%d", &n);
+    
+    getchar();
+    for (int i = 0; i < n; i++) {
+        fgets(text, sizeof(text), stdin);
+        fprintf(file, "%s", text);
+    }
+    
+    printf("Data added Successfully\n");
+    fclose(file);
+    
+    return 0;
+}
 
-
+```
 
 Output:
 
-
-//paste your output here
-
+![Screenshot 2025-04-26 210727](https://github.com/user-attachments/assets/e7f43acc-d9fe-45be-b0e0-43a8c759a902)
 
 
 
@@ -187,7 +321,33 @@ Algorithm:
 
 Program:
 
-//type your code here
+```
+#include<stdio.h>
+int main()
+{
+    struct student{
+        int regno;
+        int s1,s2,s3;
+    };
+    struct stp{
+        float total;
+        float percent;
+        struct student st;
+    };
+    struct stp s[5];
+    for(int i=0;i<5;i++){
+        scanf("%d",&s[i].st.regno);
+        scanf("%d",&s[i].st.s1);
+        scanf("%d",&s[i].st.s2);
+        scanf("%d",&s[i].st.s3);
+        s[i].total=s[i].st.s1+s[i].st.s2+s[i].st.s3;
+        s[i].percent=s[i].total/3;
+    }printf("Student Details are\n");
+    for(int i=0;i<5;i++){
+        printf("%d       %d       %d       %d       %.2f       %.2f\n",s[i].st.regno,s[i].st.s1,s[i].st.s2,s[i].st.s3,s[i].total,s[i].percent);
+    }
+}
+```
 
 
 
@@ -195,7 +355,8 @@ Program:
 Output:
 
 
-//paste your output here
+![Screenshot 2025-04-26 211611](https://github.com/user-attachments/assets/573da820-614f-463f-b095-00a10049002d)
+
 
 
 
