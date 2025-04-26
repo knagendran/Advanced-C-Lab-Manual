@@ -15,13 +15,47 @@ Else
 6.	Return 0
  
 Program:
+```
+#include <stdio.h>
 
-//type your code here
+struct eligible {
+    int age;
+    char n[50];
+};
+
+int main() {
+    int i, num;
+    
+    printf("Enter the number of persons: ");
+    scanf("%d", &num);
+
+    struct eligible e[num];
+
+    for (i = 0; i < num; i++) {
+        printf("\nEnter name of person %d: ", i + 1);
+        scanf("%s", e[i].n);
+
+        printf("Enter age of person %d: ", i + 1);
+        scanf("%d", &e[i].age);
+
+        if (e[i].age <= 6)
+            printf("Vaccine Eligibility: No\n");
+        else
+            printf("Vaccine Eligibility: Yes\n");
+
+        printf("Details - Name: %s, Age: %d\n", e[i].n, e[i].age);
+    }
+
+    return 0;
+}
+
+```
 
 
 Output:
 
-//paste your output here
+![Screenshot 2025-04-26 164654](https://github.com/user-attachments/assets/f4182c56-fb02-43f8-86e4-c9c3bfc16aeb)
+
 
 
 Result:
@@ -43,19 +77,34 @@ Algorithm:
 7.	Return 0
  
 Program:
+```
+#include <stdio.h>
 
-//type your code here
+struct numbers {
+    int a;
+    int b;
+};
 
+int add(struct numbers n) {
+    return n.a + n.b;
+}
 
+int main() {
+    struct numbers n;
 
+    printf("Enter two numbers:\n");
+    scanf("%d %d", &n.a, &n.b);
+
+    int result = add(n);
+    printf("Sum: %d\n", result);
+
+    return 0;
+}
+
+```
 
 Output:
-
-
-//paste your output here
-
-
-
+![image](https://github.com/user-attachments/assets/d4e25bda-7487-4594-b84c-a2cac7dec7fd)
 
 Result:
 Thus, the program is verified successfully
@@ -85,8 +134,28 @@ Use scanf to input the file name into the name array.
 5.	Return 0 to indicate successful program execution.
  
 Program:
+```
+#include <stdio.h>
 
-//type your code here
+int main() {
+    FILE *file;
+
+    file = fopen("Hospital.txt", "w");
+    printf("File Created Successfully\n");
+    fclose(file);
+
+    file = fopen("Hospital.txt", "r");
+    if (file != NULL) {
+        printf("File Opened\n");
+        fclose(file);
+        printf("File Closed\n");
+    } else {
+        printf("Error in opening file\n");
+    }
+
+    return 0;
+}
+```
 
 
 
@@ -94,16 +163,7 @@ Program:
 Output:
 
 
-//paste your output here
-
-
-
-
-
-
-
-
-
+![image](https://github.com/user-attachments/assets/b3d74dd1-42c9-41f2-b6d0-a27a57665af8)
 
 
 Result:
@@ -132,20 +192,40 @@ Use scanf to input the file name into the name array and the number of strings i
 5.	Return 0 to indicate successful program execution.
  
 Program:
+```
+#include <stdio.h>
 
-//type your code here
+int main() {
+    FILE *file;
+    char filename[100];
+    int n;
+    char text[100];
+
+    scanf("%s", filename);
+    scanf("%d", &n);
+
+    file = fopen(filename, "w");
+
+    printf("%s Opened\n", filename);
+
+    for (int i = 0; i < n; i++) {
+        scanf("%s", text);
+        fprintf(file, "%s\n", text);
+    }
+
+    fclose(file);
+    printf("Data added Successfully\n");
+
+    return 0;
+}
+```
 
 
 
 
 Output:
 
-
-//paste your output here
-
-
-
-
+![image](https://github.com/user-attachments/assets/7d71d516-94ae-4620-9f8a-3181f3dbfbed)
 
 
 Result:
@@ -186,21 +266,54 @@ Algorithm:
 13.End the program by returning 0.
 
 Program:
+```
+#include <stdio.h>
+#include <stdlib.h>
 
-//type your code here
+struct subject {
+    char name[50];
+    int marks;
+};
+
+int main() {
+    int n, i;
+    struct subject *s;
+
+    printf("Enter the number of subjects: ");
+    scanf("%d", &n);
+
+    s = (struct subject *)malloc(n * sizeof(struct subject));
+
+    if (s == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    for (i = 0; i < n; i++) {
+        printf("Enter name of subject %d: ", i + 1);
+        scanf(" %[^\n]", s[i].name); // <-- notice the space before %[^\n]
+        printf("Enter marks for subject %d: ", i + 1);
+        scanf("%d", &s[i].marks);
+    }
+
+    printf("\nSubject Details:\n");
+    for (i = 0; i < n; i++) {
+        printf("Subject %d - Name: %s, Marks: %d\n", i + 1, s[i].name, s[i].marks);
+    }
+
+    free(s);
+    
+    return 0;
+}
+
+```
 
 
 
 
 Output:
 
-
-//paste your output here
-
-
-
-
-
+![image](https://github.com/user-attachments/assets/7039821d-2068-4aed-b56b-f86b716cbce7)
 
 Result:
 Thus, the program is verified successfully
