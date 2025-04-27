@@ -15,18 +15,36 @@ Algorithm:
 4.	Exit the program.
  
 Program:
+```
+#include <stdio.h>
 
-//type your code here
+int main() {
+    int number;
+    printf("Enter a number (0-9): ");
+    scanf("%d", &number);
 
+    if (number >= 0 && number <= 9) {
+        const char *words[] = {
+            "zero", "one", "two", "three", "four",
+            "five", "six", "seven", "eight", "nine"
+        };
+        printf("%s\n", words[number]);
+    } else {
+        printf("Invalid input\n");
+    }
+
+    return 0;
+}
+```
 
 
 
 Output:
+```
+Enter a number (0-9): 3
+three
 
-
-//paste your output here
-
-
+```
 
 
 
@@ -46,17 +64,48 @@ Algorithm:
 6.	End
  
 Program:
+```
+#include <stdio.h>
 
-//type your code here
+int main() {
+    int numbers[100];
+    int n;
+
+    printf("Enter the number of integers: ");
+    scanf("%d", &n);
+
+    printf("Enter the integers (0-9 allowed): ");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &numbers[i]);
+    }
+
+    int frequency[10] = {0};
+    for (int i = 0; i < n; i++) {
+        if (numbers[i] >= 0 && numbers[i] <= 9) {
+            frequency[numbers[i]]++;
+        }
+    }
+
+    printf("Frequencies: ");
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", frequency[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+```
 
 
 
 
 Output:
 
-
-//paste your output here
-
+```
+Enter the number of integers: 10
+Enter the integers (0-9 allowed): 1 2 3 4 5 6 7 8 9 0
+Frequencies: 1 1 1 1 1 1 1 1 1 1
+```
 
 
 
@@ -83,17 +132,65 @@ Free the memory allocated for each string in s Free the memory allocated for s
 7.	End
  
 Program:
+```
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-//type your code here
+void swap(char *a, char *b) {
+    char t = *a;
+    *a = *b;
+    *b = t;
+}
+
+void reverse(char *str, int start, int end) {
+    while (start < end)
+        swap(&str[start++], &str[end--]);
+}
+
+int nextPermutation(char *str) {
+    int len = strlen(str), i = len - 2, j = len - 1;
+    while (i >= 0 && str[i] >= str[i + 1])
+        i--;
+    if (i < 0)
+        return 0;
+    while (str[j] <= str[i])
+        j--;
+    swap(&str[i], &str[j]);
+    reverse(str, i + 1, len - 1);
+    return 1;
+}
+
+int main() {
+    char str[100];
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
+    str[strcspn(str, "\n")] = '\0';
+    qsort(str, strlen(str), sizeof(char), (int (*)(const void *, const void *))strcmp);
+    printf("Permutations:\n");
+    printf("%s\n", str);
+    while (nextPermutation(str))
+        printf("%s\n", str);
+    return 0;
+}
+```
 
 
 
 
 Output:
 
+```
+Enter a string: abc
+Permutations:
+abc
+acb
+bac
+bca
+cab
+cba
 
-//paste your output here
-
+```
 
 
 
@@ -116,19 +213,38 @@ Algorithm:
 7.	End
  
 Program:
+```
+#include <stdio.h>
 
-//type your code here
+int main() {
+    int n, i, j, num = 1;
 
+    printf("Enter the value of n: ");
+    scanf("%d", &n);
 
+    for (i = 1; i <= n; i++) {
+        for (j = 1; j <= i; j++) {
+            printf("%d ", num++);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+```
 
 
 Output:
 
+```
+Enter the value of n: 4
+1 
+2 3 
+4 5 6 
+7 8 9 10
 
-//paste your output here
-
-
-
+```
 
 
 
@@ -155,18 +271,32 @@ o	Call the square() function and display the result.
 5.	End.
 
 Program:
+```
+#include <stdio.h>
 
-//type your code here
+int getSquare() {
+    int number;
+    printf("Enter a number: ");
+    scanf("%d", &number);
+    return number * number;
+}
 
+int main() {
+    int square = getSquare();
+    printf("The square is: %d\n", square);
+    return 0;
+}
+
+```
 
 
 
 Output:
+```
+Enter a number: 5
+The square is: 25
 
-
-//paste your output here
-
-
+```
 
 
 
