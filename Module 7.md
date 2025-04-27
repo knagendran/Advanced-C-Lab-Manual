@@ -15,15 +15,67 @@ Else
 6.	Return 0
  
 Program:
+```
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
 
-//type your code here
+struct Person {
+    char name[50];
+    int age;
+};
 
+bool isEligibleForVaccine(int age) {
+    return age > 6;
+}
 
+int main() {
+    int numPeople;
+    printf("Enter number of people: ");
+    scanf("%d", &numPeople);
+
+    struct Person people[numPeople];
+    for (int i = 0; i < numPeople; i++) {
+        printf("\nPerson %d:\n", i + 1);
+        printf("Name: ");
+        fgets(people[i].name, sizeof(people[i].name), stdin);
+        size_t len = strcspn(people[i].name, "\n");
+        if (len < sizeof(people[i].name))
+            people[i].name[len] = '\0';
+        printf("Age: ");
+        scanf("%d", &people[i].age);
+        while (getchar() != '\n');
+    }
+
+    printf("\nEligibility:\n");
+    for (int i = 0; i < numPeople; i++) {
+        bool eligible = isEligibleForVaccine(people[i].age);
+        printf("Name: %s, Age: %d, Eligible: %s\n", people[i].name, people[i].age, eligible ? "Yes" : "No");
+    }
+    return 0;
+}
+```
 Output:
+```
+Enter number of people: 3
 
-//paste your output here
+Person 1:
+Name: John Doe
+Age: 25
 
+Person 2:
+Name: Jane Smith
+Age: 5
 
+Person 3:
+Name: Peter Pan
+Age: 10
+
+Eligibility:
+Name: John Doe, Age: 25, Eligible: Yes
+Name: Jane Smith, Age: 5, Eligible: No
+Name: Peter Pan, Age: 10, Eligible: Yes
+```
 Result:
 Thus, the program is verified successfully. 
 
@@ -43,19 +95,49 @@ Algorithm:
 7.	Return 0
  
 Program:
+```
+#include <stdio.h>
+#include <string.h>
 
-//type your code here
+struct Person {
+    char name[50];
+    int age;
+};
 
+void modifyPerson(struct Person p) {
+    p.age += 10;
+    strcpy(p.name, "Modified Name");
+    printf("Inside modifyPerson: %s, %d\n", p.name, p.age);
+}
 
+struct Person createPerson(char name[], int age) {
+    struct Person p;
+    strcpy(p.name, name);
+    p.age = age;
+    return p;
+}
+
+int main() {
+    struct Person person1 = {"John Doe", 30};
+    struct Person person2;
+
+    modifyPerson(person1);
+    printf("Outside modifyPerson: %s, %d\n", person1.name, person1.age);
+
+    person2 = createPerson("Jane Smith", 25);
+    printf("Created Person: %s, %d\n", person2.name, person2.age);
+
+    return 0;
+}
+```
 
 
 Output:
-
-
-//paste your output here
-
-
-
+```
+Inside modifyPerson: Modified Name, 40
+Outside modifyPerson: John Doe, 30
+Created Person: Jane Smith, 25
+```
 
 Result:
 Thus, the program is verified successfully
@@ -85,19 +167,30 @@ Use scanf to input the file name into the name array.
 5.	Return 0 to indicate successful program execution.
  
 Program:
+```
+#include <stdio.h>
+#include <string.h>
 
-//type your code here
+int main() {
+    char filename[100];
 
+    printf("Enter the filename: ");
+    fgets(filename, sizeof(filename), stdin);
+    filename[strcspn(filename, "\n")] = 0;
 
+    printf("The filename entered is: %s\n", filename);
+
+    return 0;
+}
+```
 
 
 Output:
+```
+Enter the filename: my_document.txt
+The filename entered is: my_document.txt
 
-
-//paste your output here
-
-
-
+```
 
 
 
@@ -132,16 +225,70 @@ Use scanf to input the file name into the name array and the number of strings i
 5.	Return 0 to indicate successful program execution.
  
 Program:
+```
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-//type your code here
+int main() {
+    char filename[100];
+    char textToInsert[200];
+    FILE *file;
+    FILE *tempFile;
+    char buffer[1024];
+    int lineNum = 2;
+    int currentLine = 1;
 
+    printf("Enter filename: ");
+    fgets(filename, sizeof(filename), stdin);
+    filename[strcspn(filename, "\n")] = 0;
+
+    printf("Enter text to insert: ");
+    fgets(textToInsert, sizeof(textToInsert), stdin);
+    textToInsert[strcspn(textToInsert, "\n")] = 0;
+
+    file = fopen(filename, "r+");
+    if (!file) {
+        perror("Error opening file");
+        return 1;
+    }
+
+    tempFile = fopen("temp.txt", "w");
+    if (!tempFile) {
+        perror("Error creating temp file");
+        fclose(file);
+        return 1;
+    }
+
+    while (fgets(buffer, sizeof(buffer), file)) {
+        if (currentLine == lineNum)
+            fprintf(tempFile, "%s\n", textToInsert);
+        fprintf(tempFile, "%s", buffer);
+        currentLine++;
+    }
+    if (currentLine < lineNum)
+        fprintf(tempFile, "%s\n", textToInsert);
+
+    fclose(file);
+    fclose(tempFile);
+    remove(filename);
+    rename("temp.txt", filename);
+
+    printf("Text inserted into %s\n", filename);
+    return 0;
+}
+
+```
 
 
 
 Output:
 
-
-//paste your output here
+```
+Enter filename: satwik
+Enter text to insert: hello
+Error opening file: No such file or directory
+```
 
 
 
@@ -186,16 +333,77 @@ Algorithm:
 13.End the program by returning 0.
 
 Program:
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-//type your code here
+struct Subject {
+    char *name;
+    int marks;
+};
+
+int main() {
+    int numSubjects;
+    printf("Enter the number of subjects: ");
+    scanf("%d", &numSubjects);
+    getchar();
+
+    struct Subject *subjects = (struct Subject *)malloc(numSubjects * sizeof(struct Subject));
+    if (subjects == NULL) {
+        perror("Memory allocation failed");
+        return 1;
+    }
+
+    for (int i = 0; i < numSubjects; i++) {
+        subjects[i].name = (char *)malloc(50 * sizeof(char));
+        if (subjects[i].name == NULL) {
+            perror("Memory allocation failed for subject name");
+            // Handle previous allocations
+            for (int j = 0; j < i; j++) {
+                free(subjects[j].name);
+            }
+            free(subjects);
+            return 1;
+        }
+        printf("Enter name of subject %d: ", i + 1);
+        fgets(subjects[i].name, 50, stdin);
+        subjects[i].name[strcspn(subjects[i].name, "\n")] = '\0';
+
+        printf("Enter marks for subject %d: ", i + 1);
+        scanf("%d", &subjects[i].marks);
+        getchar();
+    }
+
+    printf("\nSubject Details:\n");
+    for (int i = 0; i < numSubjects; i++) {
+        printf("Subject: %s, Marks: %d\n", subjects[i].name, subjects[i].marks);
+    }
+
+    for (int i = 0; i < numSubjects; i++) {
+        free(subjects[i].name);
+    }
+    free(subjects);
+
+    return 0;
+}
+```
 
 
 
 
 Output:
+```
+Enter the number of subjects: 2
+Enter name of subject 1: Math
+Enter marks for subject 1: 90
+Enter name of subject 2: Physics
+Enter marks for subject 2: 85
 
-
-//paste your output here
+Subject Details:
+Subject: Math, Marks: 90
+Subject: Physics, Marks: 85
+```
 
 
 
