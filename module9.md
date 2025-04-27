@@ -12,13 +12,60 @@ Algorithm:
 7.	Use the display function to visualize the stack's contents
  
 Program:
+```
+#include <stdio.h>
+#include <stdlib.h>
 
-//type your code here
+#define MAX_SIZE 100
+
+int stack[MAX_SIZE];
+int top = -1;
+
+void push(int value) {
+    if (top >= MAX_SIZE - 1) {
+        printf("Stack Overflow\n");
+        return;
+    }
+    stack[++top] = value;
+}
+
+int pop() {
+    if (top == -1) {
+        printf("Stack Underflow\n");
+        return -1;
+    }
+    return stack[top--];
+}
+
+void displayStack() {
+    if (top == -1) {
+        printf("Stack is empty\n");
+        return;
+    }
+    printf("Stack elements: ");
+    for (int i = 0; i <= top; i++) {
+        printf("%d ", stack[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    push(10);
+    push(20);
+    push(30);
+    displayStack();
+    pop();
+    displayStack();
+    return 0;
+}
+```
 
 Output:
+```
+Stack elements: 10 20 30 
+Stack elements: 10 20 
 
-//paste your output here
-
+```
 
 
 Result:
@@ -35,12 +82,52 @@ Algorithm:
 4.	Call the push function as needed.
  
 Program:
+```
+#include <stdio.h>
+#include <stdlib.h>
 
-//type your code here
+#define MAX_SIZE 100
+
+int stack[MAX_SIZE];
+int top = -1;
+
+void push(int value) {
+    if (top >= MAX_SIZE - 1) {
+        printf("Stack Overflow\n");
+        return;
+    }
+    stack[++top] = value;
+    printf("%d pushed onto the stack\n", value);
+}
+
+void displayStack() {
+    if (top == -1) {
+        printf("Stack is empty\n");
+        return;
+    }
+    printf("Stack elements: ");
+    for (int i = 0; i <= top; i++) {
+        printf("%d ", stack[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    push(10);
+    push(20);
+    push(30);
+    displayStack();
+    return 0;
+}
+```
 
 Output:
-
-//paste your output here
+```
+10 pushed onto the stack
+20 pushed onto the stack
+30 pushed onto the stack
+Stack elements: 10 20 30 
+```
 
 
 
@@ -61,12 +148,69 @@ Algorithm:
 4.	Call the display function and perform other queue operations as needed.
  
 Program:
+```
+#include <stdio.h>
+#include <stdlib.h>
 
-//type your code here
+#define MAX_SIZE 100
+
+int queue[MAX_SIZE];
+int front = -1;
+int rear = -1;
+
+void enqueue(int value) {
+    if (rear >= MAX_SIZE - 1) {
+        printf("Queue Overflow\n");
+        return;
+    }
+    if (front == -1)
+        front = 0;
+    queue[++rear] = value;
+    printf("%d enqueued into the queue\n", value);
+}
+
+int dequeue() {
+    if (front == -1 || front > rear) {
+        printf("Queue Underflow\n");
+        return -1;
+    }
+    int value = queue[front++];
+    printf("%d dequeued from queue\n", value);
+    return value;
+}
+
+void displayQueue() {
+    if (front == -1 || front > rear) {
+        printf("Queue is empty\n");
+        return;
+    }
+    printf("Queue elements: ");
+    for (int i = front; i <= rear; i++) {
+        printf("%d ", queue[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+    displayQueue();
+    dequeue();
+    displayQueue();
+    return 0;
+}
+```
 
 Output:
-
-//paste your output here
+```
+10 enqueued into the queue
+20 enqueued into the queue
+30 enqueued into the queue
+Queue elements: 10 20 30 
+10 dequeued from queue
+Queue elements: 20 30 
+```
 
 
 Result:
@@ -85,12 +229,41 @@ Algorithm:
 4.	Call the enqueue function as needed.
 
 Program:
+```
+#include <stdio.h>
+#include <stdlib.h>
 
-//type your code here
+#define MAX_SIZE 100
 
+int queue[MAX_SIZE];
+int front = -1;
+int rear = -1;
+
+void enqueue(int value) {
+    if (rear >= MAX_SIZE - 1) {
+        printf("Queue Overflow\n");
+        return;
+    }
+    if (front == -1)
+        front = 0;
+    queue[++rear] = value;
+    printf("%d enqueued into the queue\n", value);
+}
+
+int main() {
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+    return 0;
+}
+
+```
 Output:
-
-//paste your output here
+```
+10 enqueued into the queue
+20 enqueued into the queue
+30 enqueued into the queue
+```
 
 Result:
 Thus, the program to insert elements in queue using array is verified successfully.
@@ -120,12 +293,53 @@ o	After deletion, check if the front pointer has passed the rear pointer (front 
 
 
 Program:
+```
+#include <stdio.h>
+#include <stdlib.h>
 
-//type your code here
+#define MAX_SIZE 100
+
+int queue[MAX_SIZE];
+int front = -1;
+int rear = -1;
+
+void enqueue(int value) {
+    if (rear >= MAX_SIZE - 1) {
+        printf("Queue Overflow\n");
+        return;
+    }
+    if (front == -1)
+        front = 0;
+    queue[++rear] = value;
+    printf("%d enqueued into the queue\n", value);
+}
+
+int dequeue() {
+    if (front == -1 || front > rear) {
+        printf("Queue Underflow\n");
+        return -1;
+    }
+    int value = queue[front++];
+    printf("%d dequeued from queue\n", value);
+    return value;
+}
+
+int main() {
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+    dequeue();
+    return 0;
+}
+```
 
 Output:
-
-//paste your output here
+```
+10 enqueued into the queue
+20 enqueued into the queue
+30 enqueued into the queue
+10 dequeued from queue
+```
 
 
 Result:
