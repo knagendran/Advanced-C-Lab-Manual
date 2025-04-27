@@ -12,10 +12,36 @@ Algorithm:
 5.	Call the max_of_four function with the input integers and store the result in the greater variable
  
 Program:
-//type your code here
+```
+#include <stdio.h>
+
+int findGreatest(int num1, int num2, int num3) {
+    int greatest = num1;
+    if (num2 > greatest) {
+        greatest = num2;
+    }
+    if (num3 > greatest) {
+        greatest = num3;
+    }
+    return greatest;
+}
+
+int main() {
+    int n1, n2, n3;
+    printf("Enter three numbers: ");
+    scanf("%d %d %d", &n1, &n2, &n3);
+
+    int result = findGreatest(n1, n2, n3);
+    printf("The greatest number is: %d\n", result);
+    return 0;
+}
+```
 
 Output:
-//paste your output here
+```
+Enter three numbers: 25 100 75
+The greatest number is: 100
+```
 
 Result:
 Thus, the program  that create a function to find the greatest number is verified successfully.
@@ -36,10 +62,61 @@ Algorithm:
 7.	Call the calculate_the_max function with input values.
  
 Program:
-//type your code here
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n, k;
+
+    printf("Enter the value of n: ");
+    scanf("%d", &n);
+    printf("Enter the value of k: ");
+    scanf("%d", &k);
+
+    if (n <= 0 || k <= 0) {
+        printf("n and k must be positive integers.\n");
+        return 1;
+    }
+
+    int max_and = 0;
+    int max_or = 0;
+    int max_xor = 0;
+
+    for (int i = 1; i < n; i++) {
+        for (int j = i + 1; j <= n; j++) {
+            int and_result = i & j;
+            int or_result = i | j;
+            int xor_result = i ^ j;
+
+            if (and_result < k && and_result > max_and) {
+                max_and = and_result;
+            }
+            if (or_result < k && or_result > max_or) {
+                max_or = or_result;
+            }
+            if (xor_result < k && xor_result > max_xor) {
+                max_xor = xor_result;
+            }
+        }
+    }
+
+    printf("Max AND value: %d\n", max_and);
+    printf("Max OR value: %d\n", max_or);
+    printf("Max XOR value: %d\n", max_xor);
+
+    return 0;
+}
+```
 
 Output:
-//paste your output here
+```
+Enter the value of n: 5
+Enter the value of k: 3
+Max AND value: 2
+Max OR value: 3
+Max XOR value: 2
+```
 
 Result:
 Thus, the program to print the maximum values for the AND, OR and XOR comparisons
@@ -59,10 +136,82 @@ Algorithm:
 5.	Use a for loop to iterate over the queries.
  
 Program:
-//type your code here
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n, k;
+    int request;
+
+    printf("Enter the value of n: ");
+    scanf("%d", &n);
+    printf("Enter the value of k: ");
+    scanf("%d", &k);
+
+    if (n <= 0 || k <= 0) {
+        printf("n and k must be positive integers.\n");
+        return 1;
+    }
+
+    printf("Enter your request:\n");
+    printf("1: Calculate maximum AND value\n");
+    printf("2: Calculate maximum OR value\n");
+    printf("3: Calculate maximum XOR value\n");
+    scanf("%d", &request);
+
+    int max_and = 0;
+    int max_or = 0;
+    int max_xor = 0;
+
+    for (int i = 1; i < n; i++) {
+        for (int j = i + 1; j <= n; j++) {
+            int and_result = i & j;
+            int or_result = i | j;
+            int xor_result = i ^ j;
+
+            if (and_result < k && and_result > max_and) {
+                max_and = and_result;
+            }
+            if (or_result < k && or_result > max_or) {
+                max_or = or_result;
+            }
+            if (xor_result < k && xor_result > max_xor) {
+                max_xor = xor_result;
+            }
+        }
+    }
+
+    switch (request) {
+        case 1:
+            printf("Max AND value: %d\n", max_and);
+            break;
+        case 2:
+            printf("Max OR value: %d\n", max_or);
+            break;
+        case 3:
+            printf("Max XOR value: %d\n", max_xor);
+            break;
+        default:
+            printf("Invalid request\n");
+            break;
+    }
+
+    return 0;
+}
+```
 
 Output:
-//paste your output here
+```
+Enter the value of n: 5
+Enter the value of k: 7
+Enter your request:
+1: Calculate maximum AND value
+2: Calculate maximum OR value
+3: Calculate maximum XOR value
+1
+Max AND value: 6
+```
 
 
 Result:
@@ -86,11 +235,57 @@ Algorithm:
 
 
 Program:
-//type your code here
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n;
+    printf("Enter the number of integers: ");
+    scanf("%d", &n);
+
+    if (n <= 0) {
+        printf("Invalid input. Number of integers should be positive.\n");
+        return 1;
+    }
+
+    int *a = (int *)malloc(n * sizeof(int));
+    if (a == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
+
+    printf("Enter the integers:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &a[i]);
+    }
+
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += a[i];
+    }
+
+    printf("Sum of the integers = %d\n", sum);
+
+    free(a);
+
+    return 0;
+}
+
+```
 
 Output:
-//paste your output here
+```
+Enter the number of integers in the array: 5
+Enter the integers:
+1
+2
+3
+4
+5
+Sum of the integers in the array: 15
 
+```
  
 
 
@@ -120,10 +315,45 @@ o	If a character is not a space, it may belong to a word. If it's the first non-
 
 
 Program:
-//type your code here
+```
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int countWords(char *sentence) {
+    int count = 0;
+    int inWord = 0;
+    for (int i = 0; sentence[i] != '\0'; i++) {
+        if (isspace(sentence[i]) == 0 && inWord == 0) {
+            inWord = 1;
+            count++;
+        } else if (isspace(sentence[i]) != 0) {
+            inWord = 0;
+        }
+    }
+    return count;
+}
+
+int main() {
+    char sentence[1000];
+
+    printf("Enter a sentence: ");
+    fgets(sentence, sizeof(sentence), stdin);
+
+    sentence[strcspn(sentence, "\n")] = '\0';
+
+    int wordCount = countWords(sentence);
+    printf("Number of words: %d\n", wordCount);
+
+    return 0;
+}
+```
 
 Output:
-//paste your output here
+```
+Enter a sentence: This is a sample sentence.
+Number of words: 5
+```
 
 
 
