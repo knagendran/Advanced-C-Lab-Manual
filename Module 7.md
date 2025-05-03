@@ -16,12 +16,33 @@ Else
  
 Program:
 
-//type your code here
+#include <stdio.h>
+#include <string.h>
+struct eligible
+{
+    int age;
+    char name[20];
+    char eligible[10];
+}a;
+int main()
+{
+    scanf("%d %s",&a.age,a.name);
+    if(a.age>18)
+    {
+        strcpy(a.eligible,"yes");
+    }
+    else
+    {
+        strcpy(a.eligible,"no");
+    }
+    
+    printf("Age:%d \nName:%svaccine:%d \neligibility:%s",a.age,a.name,a.age,a.eligible);
+}
 
 
 Output:
 
-//paste your output here
+![Screenshot 2025-05-03 143833](https://github.com/user-attachments/assets/257b549d-3893-47e6-8cc0-ed69ecb9e669)
 
 
 Result:
@@ -44,18 +65,25 @@ Algorithm:
  
 Program:
 
-//type your code here
-
-
+#include<stdio.h>
+struct 
+{
+  int num1;
+  int num2;
+  
+}s1;
+int main()
+{
+    struct s1;
+    scanf("%d%d",&s1.num1,&s1.num2);
+    printf("%d",s1.num1+s1.num2);
+    return 0;
+}
 
 
 Output:
 
-
-//paste your output here
-
-
-
+![Screenshot 2025-05-03 143737](https://github.com/user-attachments/assets/3bf84984-078d-439c-bb80-57a1d7aee681)
 
 Result:
 Thus, the program is verified successfully
@@ -86,24 +114,26 @@ Use scanf to input the file name into the name array.
  
 Program:
 
-//type your code here
-
-
+#include <stdio.h>
+#include<stdlib.h>
+int main()
+{
+    char file[100];
+    scanf("%s",file);
+    FILE *fp;
+    fp=fopen(file,"w");
+    if(fp!=NULL)
+    {
+        printf("%s File Created Successfully\n",file);
+        printf("%s File Opened\n",file);
+        fclose(fp);
+        printf("%s File Closed",file);
+    }
+}
 
 
 Output:
-
-
-//paste your output here
-
-
-
-
-
-
-
-
-
+![Screenshot 2025-05-03 143447](https://github.com/user-attachments/assets/dd7e6b36-e9fb-401a-8eb3-4d5586462be7)
 
 
 Result:
@@ -133,19 +163,36 @@ Use scanf to input the file name into the name array and the number of strings i
  
 Program:
 
-//type your code here
-
-
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+    char file[100];
+    int n;
+    scanf("%s%d",file,&n);
+    int a[n];
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    FILE *fp;
+    fp = fopen(file,"w");
+    if(fp!=NULL)
+    {
+        printf("%s Opened\n",file);
+        for(int i=0;i<n;i++)
+        {
+            fprintf(fp,"%d",a[i]);
+        }
+        printf("Data added Successfully");
+        fclose(fp);
+    }
+}
 
 
 Output:
 
-
-//paste your output here
-
-
-
-
+![Screenshot 2025-05-03 144315](https://github.com/user-attachments/assets/2f695236-5e3b-4267-bd17-81500f3cf263)
 
 
 Result:
